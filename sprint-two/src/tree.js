@@ -4,13 +4,13 @@ var Tree = function(value){
 
   // your code here
   newTree.children = null;  // fix me
+  // your code here
+  newTree.children = null;  // fix me
 
   return newTree;
 };
 
 
-  // your code here
-  newTree.children = null;  // fix me
 
 
 var treeMethods = {};
