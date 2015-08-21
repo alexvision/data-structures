@@ -4,32 +4,36 @@ var LinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
-    // if we don't have anything in the list set the initial value to the head
-    console.log(this.head)
-    // if (this.head == null){
-    //    var initialNode = Node(value);
-    //    this.head = initialNode;
-    // }
-    // //if we don't have anything in the list, set this value as the end value
-    // if (this.tail === null) {
-    //   // debugger;
-    //   this.tail = initialNode;
-    //   // console.log(initialNode)
-    // } else {
-    //   var additionalNode = Node(value);
-    //   // console.log(additionalNode)
-    // }
+    var newNode = Node(value);
+    if (list.tail === null) {
+      list.head = newNode;
+      list.tail = newNode;
+    } else {
+      list.tail.next = newNode;
+      list.tail = newNode;
+    }
   };
 
-
-
   list.removeHead = function(){
-    
+    var current = list.head;
+    delete list.head;
+    list.head = current.next;
+    return current.value;
   };
 
   list.contains = function(target){
+    var current = list.head;
+    while (current.next !== null){
+      if (current.value === target){
+        return true;
+      }
+      current = current.next;
+    }
+    if(list.tail.value === target){
+      return true;
+    }
+    return false;
   };
-
   return list;
 };
 
@@ -38,7 +42,6 @@ var Node = function(value){
 
   node.value = value;
   node.next = null;
-
   return node;
 };
 
