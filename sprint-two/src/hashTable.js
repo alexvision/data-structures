@@ -7,17 +7,11 @@ var HashTable = function(){
 HashTable.prototype.insert = function(k, v){
   
 
-  if the bucket is undefined, assign an empty array to that bucket (location i) and set the k v pair and if the k is the same, overwrite the v 
-  else if its not undefined (there is an array there), (you know there are k,v pairs), and the k is not the same, then assign the new [kv] to that tuple 
-      if the k is the same, overwrite the value
+//   if the bucket is undefined, assign an empty array to that bucket (location i) and set the k v pair and if the k is the same, overwrite the v 
+//   else if its not undefined (there is an array there), (you know there are k,v pairs), and the k is not the same, then assign the new [kv] to that tuple 
+//       if the k is the same, overwrite the value
 
-we are setting the empty array initially, and if we know how to get the empty array at the time of insert, we know how to push to it, and overwrite it, and check its values
-
-
-
-
-
-
+// we are setting the empty array initially, and if we know how to get the empty array at the time of insert, we know how to push to it, and overwrite it, and check its values
 
   // hash of the key we are passing in
   var i = getIndexBelowMaxForKey(k, this._limit);
@@ -25,13 +19,8 @@ we are setting the empty array initially, and if we know how to get the empty ar
   //if the limited array's 0'th position is undefined 
   if (this._storage.get(i) === undefined) {
   
-    //iterate through the length of the limited array
-    for (var j = 0; j < this._limit; j++) {
-  
-      //put an empty array in each position of the LA
+      //put an empty array in the current position of the LA
       this._storage.set(i, []);
-  
-    }
   }
 
   // store the bucket of the key we passed in to currentBucket
@@ -45,9 +34,9 @@ we are setting the empty array initially, and if we know how to get the empty ar
 
     // iterate over the current tuples in the bucket
     for (var z = 0; z < currentBucket.length; z++) {
-      if (currentBucket[z] !== k){
+      if (currentBucket[z][0] !== k){
         
-        newBucket.push(this._storage.get(z));
+        newBucket.push(this._storage.get(z)[0]);
         // push each tuple key/value pair into newBucket
       }
 
@@ -75,29 +64,38 @@ HashTable.prototype.retrieve = function(k){
 
   // iterate over the tuples in our bucket
   for (var j = 0; j < currentBucket.length; j++) {
-
-    // if the current key in our bucket is equal to our key parameter
-    console.log(currentBucket[j][0])
-    if (currentBucket[j][0] === k) {
-
+    //Handle the case where the value has been removed 
+    if(currentBucket[j] === null){
+      //by returning a null value
+      return null;
+    }
+    // if the current key in our bucket is equal to our key parameter (and isn't undefined)
+    if (currentBucket[j] !==  undefined &&  currentBucket[j][0] === k) {
+      console.log('returned', currentBucket[j][1] )
       // then return the key's value
       return currentBucket[j][1];
     }
   }
+
 };
 
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
+  //debugger;
   if (bucket) {
     for (var z = 0; z < bucket.length; z++) {
-
       // console.log(bucket[z][0])
       if (bucket[z][0] === k) {
+        console.log(bucket[z]);
+         bucket[z] = null;
+        console.log(bucket);
+         break;
+        
 
-        delete bucket[z];
       }
     }
+    
   }
 };
 
