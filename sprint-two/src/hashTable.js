@@ -71,7 +71,6 @@ HashTable.prototype.retrieve = function(k){
     }
     // if the current key in our bucket is equal to our key parameter (and isn't undefined)
     if (currentBucket[j] !==  undefined &&  currentBucket[j][0] === k) {
-      console.log('returned', currentBucket[j][1] )
       // then return the key's value
       return currentBucket[j][1];
     }
@@ -82,23 +81,15 @@ HashTable.prototype.retrieve = function(k){
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
-  //debugger;
   if (bucket) {
     for (var z = 0; z < bucket.length; z++) {
-      // console.log(bucket[z][0])
       if (bucket[z][0] === k) {
-        console.log(bucket[z]);
          bucket[z] = null;
-        console.log(bucket);
          break;
-        
-
       }
     }
-    
   }
 };
-
 
 
 /*
