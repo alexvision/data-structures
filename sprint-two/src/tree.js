@@ -20,8 +20,7 @@ treeMethods.addChild = function(value){
 
 treeMethods.contains = function(target){
 
-  var recursiveHelper = function(curTree)
-  {
+  var recursiveHelper = function(curTree) {
     if (curTree.value === target) {
       return true;
     } else {
@@ -29,6 +28,7 @@ treeMethods.contains = function(target){
       for (var i = 0; i < curTree.children.length; i++) {
         if ( recursiveHelper(curTree.children[i]) ) {
           ifAnyChildContains = true;
+
         }
       }
       return ifAnyChildContains;

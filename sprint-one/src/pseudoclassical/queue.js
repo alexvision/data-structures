@@ -9,6 +9,7 @@ var Queue = function() {
 Queue.prototype.enqueue = function(val) {
   Queue[this.lastVal] = val;
   this.lastVal++;
+  console.log(this.lastVal);
 };
 Queue.prototype.dequeue = function() {
   var temp = Queue[this.firstVal];
